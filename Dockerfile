@@ -1,4 +1,4 @@
-FROM php:7.3-apache-stretch
+FROM --platform=linux/arm64 php:7.3-apache-stretch
 
 MAINTAINER tobias@proudcommerce.com
 

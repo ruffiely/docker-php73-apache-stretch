@@ -34,14 +34,8 @@ RUN curl -o ioncube.tar.gz http://downloads3.ioncube.com/loader_downloads/ioncub
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN chown www-data:www-data /var/www
 
-# install mod_pagespeed
-RUN wget https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb
-RUN dpkg -i mod-pagespeed-*.deb
-RUN rm mod-pagespeed-*.deb
-RUN sed -i -e 's/ModPagespeed on/ModPagespeed off/g' /etc/apache2/mods-available/pagespeed.conf
-
 # apache stuff
-RUN /usr/sbin/a2enmod rewrite && /usr/sbin/a2enmod headers && /usr/sbin/a2enmod expires && /usr/sbin/a2enmod pagespeed
+RUN /usr/sbin/a2enmod rewrite && /usr/sbin/a2enmod headers && /usr/sbin/a2enmod expires
 COPY ./files/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 WORKDIR /var/www/html
